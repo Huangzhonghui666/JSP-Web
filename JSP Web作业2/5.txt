@@ -1,0 +1,57 @@
+package com.dabing.week2.demo;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ * 作业二：用户注册表单处理 Servlet
+ * 支持 GET/POST 两种请求方式，解决 405 错误
+ * 处理中文乱码，兼容表单提交和直接访问
+ */
+public class RegisterServlet extends HttpServlet {
+
+    // 处理 POST 请求（表单提交的核心逻辑）
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. 解决中文乱码（必须放在获取参数之前）
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+        // 2. 获取表单提交的参数
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String gender = request.getParameter("gender");
+        String birthdate = request.getParameter("birthdate");
+
+        // 3. 输出注册结果到页面
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head><title>注册成功</title></head>");
+        out.println("<body>");
+        out.println("<h2 style='color: green;'>✅ 注册信息接收成功！</h2>");
+        out.println("<table border='1' cellpadding='8' cellspacing='0'>");
+        out.println("<tr><td>用户名</td><td>" + (username == null ? "未填写" : username) + "</td></tr>");
+        out.println("<tr><td>密码</td><td>" + (password == null ? "未填写" : password) + "</td></tr>");
+        out.println("<tr><td>邮箱</td><td>" + (email == null ? "未填写" : email) + "</td></tr>");
+        out.println("<tr><td>性别</td><td>" + (gender == null ? "未选择" : gender) + "</td></tr>");
+        out.println("<tr><td>出生日期</td><td>" + (birthdate == null ? "未选择" : birthdate) + "</td></tr>");
+        out.println("</table>");
+        out.println("</body>");
+        out.println("</html>");
+        out.close();
+    }
+
+    // 处理 GET 请求（直接访问 /register 时调用，兼容 405 错误）
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 复用 POST 逻辑，避免 GET 请求报 405
+        doPost(request, response);
+    }
+}
