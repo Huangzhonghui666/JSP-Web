@@ -1,0 +1,40 @@
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // GET请求返回注册页面
+        response.sendRedirect("register.jsp");
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置响应内容类型
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        // 获取表单数据
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        
+        // 输出提交结果
+        out.println("<!DOCTYPE html>");
+        out.println("<html lang='zh-CN'>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>注册结果</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>注册成功！</h1>");
+        out.println("<p>用户名：" + username + "</p>");
+        out.println("<p>邮箱：" + email + "</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}

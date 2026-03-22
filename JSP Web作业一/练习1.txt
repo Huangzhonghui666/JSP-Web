@@ -1,0 +1,38 @@
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@WebServlet("/InfoServlet")
+public class InfoServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置响应内容类型
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        // 输出页面内容
+        out.println("<!DOCTYPE html>");
+        out.println("<html lang='zh-CN'>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>个人信息展示</title>");
+        out.println("<style>");
+        out.println("body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }");
+        out.println(".info { padding: 20px; border: 1px solid #ccc; border-radius: 8px; display: inline-block; }");
+        out.println("</style>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<div class='info'>");
+        out.println("<h1>姓名：黄中辉</h1>"); // 替换为你的姓名
+        out.println("<h1>学号：2024061010000414</h1>"); // 替换为你的学号
+        out.println("<h1>当前时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "</h1>");
+        out.println("</div>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
