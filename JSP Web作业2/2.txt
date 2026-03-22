@@ -1,0 +1,28 @@
+package com.dabing.week2.demo;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class RegisterServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String gender = request.getParameter("gender");
+        String birthdate = request.getParameter("birthdate");
+
+        out.println("<h2>注册信息接收成功</h2>");
+        out.println("用户名：" + username + "<br>");
+        out.println("密码：" + password + "<br>");
+        out.println("邮箱：" + email + "<br>");
+        out.println("性别：" + gender + "<br>");
+        out.println("生日：" + birthdate);
+    }
+}
